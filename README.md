@@ -1,6 +1,6 @@
 # Heart-Disease-Prediction-AI
 Sistema de predicción de riesgo de enfermedades cardíacas utilizando técnicas de Machine Learning (Random Forest) y Deep Learning. Proyecto académico basado en el dataset Cleveland de la UCI.
-# Modelo Predictivo de Enfermedades Cardíacas (IA) 🫀
+# Modelo Predictivo de Enfermedades Cardíacas (IA)
 
 > **Curso:** Inteligencia Artificial: Principios y Técnicas  
 > **Semestre:** 2025-20  
