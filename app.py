@@ -1,0 +1,114 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+
+st.set_page_config(page_title="Predicción Cardíaca IA", page_icon="🫀")
+st.title("🫀 Sistema de Predicción de Riesgo Cardíaco")
+
+@st.cache_resource
+def train_model():
+    try:
+        # 1. Cargar datos
+        df = pd.read_csv('heart_disease_uci.csv', sep=None, engine='python')
+    except Exception as e:
+        st.error(f"Error cargando CSV: {e}")
+        st.stop()
+
+    # --- CORRECCIÓN AUTOMÁTICA DE NOMBRES DE COLUMNA ---
+    # 1. Pasar todo a minúsculas
+    df.columns = df.columns.str.lower()
+    
+    # 2. Quitar espacios en blanco (ej: " age " -> "age")
+    df.columns = df.columns.str.strip()
+    
+    # 3. Mapa de sinónimos: Si encuentra 'thalachh', lo cambia a 'thalach'
+    renames = {
+        'thalachh': 'thalach',      # Error común
+        'max heart rate': 'thalach',
+        'chest pain type': 'cp',
+        'resting bp': 'trestbps',
+        'cholesterol': 'chol'
+    }
+    df.rename(columns=renames, inplace=True)
+    # ----------------------------------------------------
+
+    df.replace(['?', 'nan', 'null'], np.nan, inplace=True)
+    
+    # Lista oficial de variables que necesitamos
+    features = ['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 
+                'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal']
+    
+    target = 'num' if 'num' in df.columns else 'target'
+    
+    # Verificación final
+    missing = [col for col in features if col not in df.columns]
+    if missing:
+        st.error(f"❌ Error: Faltan las siguientes columnas en tu CSV: {missing}")
+        st.write("👀 Columnas encontradas en tu archivo:", df.columns.tolist())
+        st.warning("Por favor, abre tu CSV y verifica que los nombres sean correctos.")
+        st.stop()
+
+    # Procesamiento (igual que antes)
+    if target in df.columns:
+        df = df.dropna(subset=[target]) # Borrar filas sin diagnóstico
+        
+    for col in features:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
+
+    y = df[target].apply(lambda x: 1 if x > 0 else 0)
+    X = df[features] 
+
+    imputer = SimpleImputer(strategy='mean')
+    X_imputed = imputer.fit_transform(X)
+
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X_imputed)
+
+    model = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=42)
+    model.fit(X_scaled, y)
+
+    return model, scaler, imputer
+
+model, scaler, imputer = train_model()
+
+# --- FORMULARIO ---
+st.sidebar.header("Datos del Paciente")
+
+def get_user_input():
+    # Entradas manuales para evitar errores
+    age = st.sidebar.number_input("Edad", 20, 100, 55)
+    sex = 1 if st.sidebar.selectbox("Sexo", ["Mujer", "Hombre"]) == "Hombre" else 0
+    cp = st.sidebar.selectbox("Dolor Torácico (cp)", [0, 1, 2, 3], index=3)
+    trestbps = st.sidebar.number_input("Presión Arterial (trestbps)", 80, 200, 120)
+    chol = st.sidebar.number_input("Colesterol (chol)", 100, 600, 200)
+    fbs = 1 if st.sidebar.selectbox("Azúcar > 120 (fbs)", ["No", "Sí"]) == "Sí" else 0
+    restecg = st.sidebar.selectbox("ECG Reposo (restecg)", [0, 1, 2])
+    thalach = st.sidebar.number_input("Frecuencia Cardíaca Máx (thalach)", 60, 220, 150)
+    exang = 1 if st.sidebar.selectbox("Angina x Ejercicio (exang)", ["No", "Sí"]) == "Sí" else 0
+    oldpeak = st.sidebar.number_input("Depresión ST (oldpeak)", 0.0, 10.0, 1.0, step=0.1)
+    slope = st.sidebar.selectbox("Pendiente (slope)", [0, 1, 2], index=1)
+    ca = st.sidebar.selectbox("Vasos (ca)", [0, 1, 2, 3])
+    thal = st.sidebar.selectbox("Talasemia (thal)", [3, 6, 7], index=0)
+
+    data = {
+        'age': age, 'sex': sex, 'cp': cp, 'trestbps': trestbps, 'chol': chol,
+        'fbs': fbs, 'restecg': restecg, 'thalach': thalach, 'exang': exang,
+        'oldpeak': oldpeak, 'slope': slope, 'ca': ca, 'thal': thal
+    }
+    return pd.DataFrame(data, index=[0])
+
+input_df = get_user_input()
+
+st.divider()
+if st.button("CALCULAR RIESGO"):
+    input_imputed = imputer.transform(input_df)
+    input_scaled = scaler.transform(input_imputed)
+    prob = model.predict_proba(input_scaled)[0][1]
+    
+    st.subheader(f"Probabilidad: {prob:.1%}")
+    if prob > 0.70: st.error("🚨 ALTO RIESGO")
+    elif prob > 0.40: st.warning("⚠️ RIESGO MODERADO")
+    else: st.success("✅ BAJO RIESGO")
