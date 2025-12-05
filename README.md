@@ -1,6 +1,6 @@
 # 🩺 **Heart-Disease-Prediction-AI**: Agente Predictivo de Riesgo Cardíaco
 
-## 🚀 Visión General del Proyecto
+## 🚀 **Visión General del Proyecto**
 Este proyecto implementa un Agente de Diagnóstico Médico basado en Inteligencia Artificial (IA) capaz de predecir el riesgo de sufrir enfermedades cardíacas en pacientes. El sistema fue desarrollado como un proyecto académico utilizando técnicas avanzadas de Machine Learning (ML) y Deep Learning (DL).
 
 **Curso**: Inteligencia Artificial: Principios y Técnicas  
@@ -9,14 +9,14 @@ Este proyecto implementa un Agente de Diagnóstico Médico basado en Inteligenci
 
 **Objetivo Principal**: Asistir en la toma de decisiones clínicas, priorizando la sensibilidad (detección de casos positivos) y la interpretabilidad.
 
-> Nota: Este sistema es un proyecto académico de apoyo al diagnóstico y no debe reemplazar la evaluación ni el juicio clínico de un profesional de la salud certificado.
+> **Nota**: Este sistema es un proyecto académico de apoyo al diagnóstico y no debe reemplazar la evaluación ni el juicio clínico de un profesional de la salud certificado.
 
 ---
 
 ## 🧠 **Modelo Predictivo Seleccionado**
 Basado en la experimentación, validación cruzada y el requisito de alta sensibilidad, el modelo seleccionado para el despliegue es el **Random Forest Classifier**.
 
-### 📊 Ficha Técnica y Métricas de Validación
+### 📊 **Ficha Técnica y Métricas de Validación**
 
 | Métrica         | Resultado  | Interpretación                                                                 |
 |-----------------|------------|-------------------------------------------------------------------------------|
