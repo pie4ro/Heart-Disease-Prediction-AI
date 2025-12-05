@@ -1,63 +1,82 @@
-# Heart-Disease-Prediction-AI
-Sistema de predicción de riesgo de enfermedades cardíacas utilizando técnicas de Machine Learning (Random Forest) y Deep Learning. Proyecto académico basado en el dataset Cleveland de la UCI.
-# Modelo Predictivo de Enfermedades Cardíacas (IA)
+🩺 Heart-Disease-Prediction-AI: Agente Predictivo de Riesgo Cardíaco
+🚀 Visión General del Proyecto
+Este proyecto implementa un Agente de Diagnóstico Médico basado en Inteligencia Artificial (IA) capaz de predecir el riesgo de sufrir enfermedades cardíacas en pacientes. El sistema fue desarrollado como un proyecto académico utilizando técnicas avanzadas de Machine Learning (ML) y Deep Learning (DL).
 
-> **Curso:** Inteligencia Artificial: Principios y Técnicas  
-> **Semestre:** 2025-20  
-> **Universidad:** Universidad Privada Antenor Orrego (UPAO)
+Curso: Inteligencia Artificial: Principios y Técnicas
 
-## Descripción del Proyecto
-Este proyecto implementa un **Agente de Diagnóstico Médico** basado en Inteligencia Artificial capaz de predecir el riesgo de sufrir enfermedades cardíacas. El sistema analiza datos clínicos históricos utilizando técnicas de **Machine Learning (Random Forest)** y **Deep Learning (Redes Neuronales)** para identificar patrones complejos de riesgo cardiovascular.
+Semestre: 2025-20
 
-El modelo final seleccionado (Random Forest) ha sido desplegado para asistir en la toma de decisiones clínicas, priorizando la sensibilidad (detección de casos positivos) y la interpretabilidad.
+Universidad: Universidad Privada Antenor Orrego (UPAO)
 
-## Ficha Técnica del Modelo
-Basado en la experimentación y validación cruzada, el modelo seleccionado para producción es el **Random Forest Classifier**.
+Objetivo Principal: Asistir en la toma de decisiones clínicas, priorizando la sensibilidad (detección de casos positivos) y la interpretabilidad.
 
-| Métrica | Resultado | Interpretación |
-| :--- | :--- | :--- |
-| **AUC (Área Bajo la Curva)** | **0.994** | Capacidad discriminatoria casi perfecta. |
-| **Sensibilidad (Recall)** | **96.63%** | Alta capacidad para detectar pacientes enfermos (pocos falsos negativos). |
-| **Exactitud (Accuracy)** | **96.12%** | Precisión global del sistema. |
-| **Especificidad** | **95.49%** | Capacidad para identificar correctamente a pacientes sanos. |
+Nota: Este sistema es un proyecto académico de apoyo al diagnóstico y no debe reemplazar la evaluación ni el juicio clínico de un profesional de la salud certificado.
 
-## Estructura del Dataset
-El proyecto utiliza el **Heart Disease Dataset (Cleveland)** del repositorio UCI Machine Learning. El sistema requiere las siguientes 14 variables clínicas de entrada:
+🧠 Modelo Predictivo Seleccionado
+Basado en la experimentación, validación cruzada y el requisito de alta sensibilidad, el modelo seleccionado para el despliegue es el Random Forest Classifier.
 
-| Variable | Descripción | Tipo |
-| :--- | :--- | :--- |
-| `age` | Edad del paciente | Numérico |
-| `sex` | Sexo (1 = hombre; 0 = mujer) | Categórico |
-| `cp` | Tipo de dolor torácico (0-3) | Categórico |
-| `trestbps` | Presión arterial en reposo (mm Hg) | Numérico |
-| `chol` | Colesterol sérico (mg/dl) | Numérico |
-| `fbs` | Azúcar en sangre en ayunas > 120 mg/dl (1 = verdaero; 0 = falso) | Binario |
-| `restecg` | Resultados electrocardiográficos en reposo (0-2) | Categórico |
-| `thalach` | Frecuencia cardíaca máxima alcanzada | Numérico |
-| `exang` | Angina inducida por ejercicio (1 = sí; 0 = no) | Binario |
-| `oldpeak` | Depresión del ST inducida por el ejercicio | Numérico |
-| `slope` | Pendiente del segmento ST pico del ejercicio (0-2) | Categórico |
-| `ca` | Número de vasos principales coloreados por fluoroscopia (0-3) | Numérico |
-| `thal` | Talasemia (3 = normal; 6 = defecto fijo; 7 = defecto reversible) | Categórico |
-| `target` | **Diagnóstico (0 = Sano / 1 = Enfermo)** | Objetivo |
+Ficha Técnica y Métricas de Validación
+Métrica	Resultado	Interpretación
+AUC (Área Bajo la Curva)	0.994	Capacidad discriminatoria casi perfecta del modelo.
+Sensibilidad (Recall)	96.63%	Capacidad alta para detectar pacientes enfermos (minimiza falsos negativos).
+Exactitud (Accuracy)	96.12%	Precisión global del sistema en el conjunto de prueba.
+Especificidad	95.49%	Capacidad para identificar correctamente a pacientes sanos.
 
-## Tecnologías Utilizadas
-* **Lenguaje:** Python 3.10+
-* **Machine Learning:** Scikit-Learn (Random Forest, SVM)
-* **Deep Learning:** TensorFlow / Keras (Sequential API)
-* **Procesamiento de Datos:** Pandas, Numpy
-* **Interpretabilidad (XAI):** SHAP (SHapley Additive exPlanations)
-* **Despliegue:** Streamlit
+Exportar a Hojas de cálculo
 
-## 👥 Equipo de Desarrollo
-* Mirano Rios, Wilson Daniel
-* Alcántara Pérez, Ofcher Anghelo Estefano
-* Ordoñez Gonzales, Bruno Luis Angel
-* Tandaypan Segura, Matthew
-* Trelles Diaz, Frank Anderson
-* Castañeda Castillo, Estanis
-* Mendoza Santos, Piero
-* Ramírez Castillo, Lizeth
+📊 Estructura del Dataset (Cleveland)
+El modelo fue entrenado con el Heart Disease Dataset (Cleveland) y requiere la entrada de 13 variables clínicas para generar la predicción (target).
 
----
-*Este proyecto fue desarrollado con fines académicos para la Facultad de Ingeniería de la UPAO.*
+Variable	Tipo	Descripción	Unidad / Rango
+age	Numérico	Edad del paciente	Años
+sex	Categórico	Sexo (1 = hombre; 0 = mujer)	Binario
+cp	Categórico	Tipo de dolor torácico	0 a 3
+trestbps	Numérico	Presión arterial en reposo	mm Hg
+chol	Numérico	Colesterol sérico	mg/dl
+fbs	Binario	Azúcar en sangre en ayunas > 120 mg/dl	0 o 1
+thalach	Numérico	Frecuencia cardíaca máxima alcanzada	lpm
+exang	Binario	Angina inducida por ejercicio	0 o 1
+oldpeak	Numérico	Depresión del segmento ST inducida por el ejercicio	mm
+ca	Numérico	Vasos principales coloreados por fluoroscopia	0 a 3
+thal	Categórico	Talasemia	3, 6, o 7
+restecg, slope	Categórico	(Otros parámetros de ECG y ST)	0 a 2
+target	Objetivo	Diagnóstico (0 = Sano / 1 = Enfermo)	N/A
+
+Exportar a Hojas de cálculo
+
+💻 Tecnologías y Fuentes de Datos
+Esta sección detalla las herramientas y recursos esenciales utilizados para la experimentación, desarrollo y documentación del proyecto.
+
+A. Entorno y Librerías de IA/ML
+Categoría	Tecnología/Librería	Propósito y Función
+Lenguaje Base	Python 3.10+	Lenguaje primario para el desarrollo del modelo.
+ML/DL	Scikit-Learn, TensorFlow / Keras	Frameworks para la construcción y validación de los modelos Random Forest y Redes Neuronales.
+Procesamiento	Pandas, Numpy	Gestión, limpieza y manipulación de los datos.
+Interpretabilidad	SHAP (SHapley Additive exPlanations)	Herramienta esencial para la Interpretabilidad (XAI). Utilizada para explicar cómo cada parámetro contribuye a la predicción final.
+Despliegue	Streamlit	Framework utilizado para crear el Dashboard de la interfaz web interactiva.
+
+Exportar a Hojas de cálculo
+
+B. Fuentes de Datos y Referencias Académicas
+Recurso	Enlace o Referencia	Utilidad
+Dataset Principal	UCI Machine Learning Repository: Heart Disease Data Set	Fuente de los 14 atributos clínicos (Cleveland) usados para el entrenamiento y validación del modelo.
+Modelo Matemático Web	Regresión Logística Simplificada	Base teórica para el modelo heurístico (cálculo de riesgo) implementado en script.js.
+Análisis Clínico	API de Google Gemini	Herramienta de IA utilizada para la generación de la Justificación Clínica estructurada y la explicación de Factores Clave.
+👥 Equipo de Desarrollo
+Este proyecto fue desarrollado con fines académicos para la Facultad de Ingeniería de la UPAO por:
+
+Mirano Rios, Wilson Daniel
+
+Alcántara Pérez, Ofcher Anghelo Estefano
+
+Ordoñez Gonzales, Bruno Luis Angel
+
+Tandaypan Segura, Matthew
+
+Trelles Diaz, Frank Anderson
+
+Castañeda Castillo, Estanis
+
+Mendoza Santos, Piero
+
+Ramírez Castillo, Lizeth
