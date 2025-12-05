@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardioPredict IA - Sistema de Diagnóstico Avanzado</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="main-header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo-section">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <div>
+                    <h1 class="logo-title">CardioPredict IA</h1>
+                    <p class="logo-subtitle">Sistema de Diagnóstico Avanzado</p>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="totalPredictions">0</span>
+                    <span class="stat-label">Predicciones</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="avgRisk">0%</span>
+                    <span class="stat-label">Riesgo Promedio</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="main-container">
+    <div class="container">
+        <div class="info-cards">
+            <div class="info-card info-card-primary">
+                <div class="info-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3>Predicción Instantánea</h3>
+                    <p>Resultados en tiempo real basados en Machine Learning</p>
+                </div>
+            </div>
+            <div class="info-card info-card-secondary">
+                <div class="info-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3>Historial Completo</h3>
+                    <p>Seguimiento de todas tus evaluaciones médicas</p>
+                </div>
+            </div>
+            <div class="info-card info-card-accent">
+                <div class="info-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3>IA Médica</h3>
+                    <p>Justificación clínica generada por Gemini 2.5</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="form-section">
+                <div class="section-header">
+                    <h2>Parámetros Clínicos del Paciente</h2>
+                    <p>Ingresa los datos médicos para obtener una predicción precisa</p>
+                </div>
+
+                <form id="predictionForm" class="prediction-form">
+                    <div class="form-group-header">
+                        <span class="group-number">1</span>
+                        <h3>Datos Demográficos</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="age">Edad</label>
+                            <input type="number" id="age" value="55" min="20" max="100" required>
+                            <span class="input-unit">años</span>
+                        </div>
+                        <div class="input-group">
+                            <label for="sex">Sexo</label>
+                            <select id="sex" required>
+                                <option value="1">Masculino</option>
+                                <option value="0">Femenino</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-header">
+                        <span class="group-number">2</span>
+                        <h3>Síntomas Cardiovasculares</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="input-group full-width">
+                            <label for="cp">Tipo de Dolor Torácico</label>
+                            <select id="cp" required>
+                                <option value="0">Asintomático</option>
+                                <option value="1">Angina Atípica</option>
+                                <option value="2">Dolor No Anginal</option>
+                                <option value="3" selected>Angina Típica</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="exang">Angina por Ejercicio</label>
+                            <select id="exang" required>
+                                <option value="0" selected>No</option>
+                                <option value="1">Sí</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-header">
+                        <span class="group-number">3</span>
+                        <h3>Valores Hemodinámicos</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="trestbps">Presión Arterial</label>
+                            <input type="number" id="trestbps" value="120" min="80" max="200" required>
+                            <span class="input-unit">mm Hg</span>
+                        </div>
+                        <div class="input-group">
+                            <label for="chol">Colesterol</label>
+                            <input type="number" id="chol" value="200" min="100" max="600" required>
+                            <span class="input-unit">mg/dl</span>
+                        </div>
+                        <div class="input-group">
+                            <label for="fbs">Glucosa en Ayunas</label>
+                            <select id="fbs" required>
+                                <option value="0" selected>Normal (≤120 mg/dl)</option>
+                                <option value="1">Elevada (>120 mg/dl)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-header">
+                        <span class="group-number">4</span>
+                        <h3>Evaluación Cardíaca</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="thalach">Frecuencia Cardíaca Máx.</label>
+                            <input type="number" id="thalach" value="150" min="60" max="220" required>
+                            <span class="input-unit">lpm</span>
+                        </div>
+                        <div class="input-group">
+                            <label for="restecg">Resultado ECG en Reposo</label>
+                            <select id="restecg" required>
+                                <option value="0" selected>Normal</option>
+                                <option value="1">Anormalidad ST-T</option>
+                                <option value="2">Hipertrofia Ventricular</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-header">
+                        <span class="group-number">5</span>
+                        <h3>Parámetros Especializados</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="oldpeak">Depresión ST</label>
+                            <input type="number" id="oldpeak" value="1.0" min="0.0" max="10.0" step="0.1" required>
+                            <span class="input-unit">mm</span>
+                        </div>
+                        <div class="input-group">
+                            <label for="slope">Pendiente ST</label>
+                            <select id="slope" required>
+                                <option value="0">Descendente</option>
+                                <option value="1" selected>Horizontal</option>
+                                <option value="2">Ascendente</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="ca">Vasos Principales</label>
+                            <select id="ca" required>
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="thal">Talasemia</label>
+                            <select id="thal" required>
+                                <option value="3" selected>Normal</option>
+                                <option value="6">Defecto Fijo</option>
+                                <option value="7">Defecto Reversible</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="calculateBtn">
+                            <span id="buttonText">Calcular Riesgo Cardíaco</span>
+                            <div class="btn-spinner" id="buttonSpinner"></div>
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="resetBtn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                            </svg>
+                            Reiniciar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="results-section">
+                <div class="section-header">
+                    <h2>Análisis y Predicción</h2>
+                    <p>Evaluación en tiempo real del riesgo cardiovascular</p>
+                </div>
+
+                <div id="initialMessage" class="initial-state">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    <h3>Listo para Analizar</h3>
+                    <p>Completa el formulario y presiona "Calcular Riesgo Cardíaco" para obtener tu predicción médica instantánea.</p>
+                </div>
+
+                <div id="loading" class="loading-state">
+                    <div class="loading-spinner">
+                        <div class="spinner-ring"></div>
+                        <div class="spinner-ring"></div>
+                        <div class="spinner-ring"></div>
+                    </div>
+                    <h3>Analizando Datos Clínicos</h3>
+                    <p>Procesando parámetros con IA médica avanzada...</p>
+                </div>
+
+                <div id="resultContainer" class="result-container">
+                    <div id="riskCard" class="risk-card"></div>
+
+                    <div class="risk-visualization">
+                        <h4>Nivel de Riesgo Cardiovascular</h4>
+                        <div class="risk-bar-container">
+                            <div id="riskBar" class="risk-bar"></div>
+                            <div class="risk-markers">
+                                <span>Bajo</span>
+                                <span>Moderado</span>
+                                <span>Alto</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-ghost" id="saveToHistory">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+                        </svg>
+                        Guardar en Historial
+                    </button>
+                </div>
+
+                <div class="history-section">
+                    <h3>Historial de Evaluaciones</h3>
+                    <div id="historyList" class="history-list">
+                        <p class="empty-history">No hay evaluaciones guardadas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="main-footer">
+    <div class="container">
+        <p>Sistema de predicción basado en Machine Learning y dataset Cleveland. La justificación clínica es generada por IA médica avanzada (Gemini 2.5).</p>
+        <p class="footer-note">Esta herramienta es de apoyo diagnóstico. Consulte siempre con un profesional médico certificado.</p>
+    </div>
+</footer>
+
+<div id="riskAnimationOverlay" class="risk-overlay">
+    <div id="animationContent" class="overlay-content"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
